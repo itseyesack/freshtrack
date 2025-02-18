@@ -1,0 +1,9 @@
+services:
+  freshsrv:
+    build: .
+    image: freshsrv
+    ports:
+      - 8000:8000
+    environment:
+      - BEARER_TOKEN=sk-averysecuretoken
+      - API_URL=https://youraiapiserver.lol/api/chat/completions

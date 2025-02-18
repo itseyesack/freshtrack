@@ -1,0 +1,31 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    > <!-- Set background color -->
+
+    <TextView
+        android:id="@+id/itemNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Item Name"
+        style="@style/PantryItemDetailTitleStyle"/>
+
+    <TextView
+        android:id="@+id/itemCategoryTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Category"
+        style="@style/PantryItemDetailTextStyle"/>
+
+    <TextView
+        android:id="@+id/itemDetailsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Details:\n..."
+        style="@style/PantryItemDetailBodyStyle"
+        />
+</LinearLayout>
