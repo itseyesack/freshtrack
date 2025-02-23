@@ -291,7 +291,7 @@ class CameraActivity : AppCompatActivity() {
             val jsonResponse = JSONObject(response)
             val itemsForRemoval = jsonResponse.getJSONArray("items_for_removal")
             for (i in 0 until itemsForRemoval.length()) {
-                itemsToRemove.add(itemsForRemoval.getString(i).toLowerCase())
+                itemsToRemove.add(itemsForRemoval.getString(i).lowercase())
             }
 
             // Update Pantry Items - Process *all* receipts, not just items for removal
