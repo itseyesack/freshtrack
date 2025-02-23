@@ -41,6 +41,13 @@
                         android:inputType="text"
                         android:paddingLeft="24dp"
                         />
+
+                    <Button
+                        android:id="@+id/btnSignOut"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="SIGN OUT" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

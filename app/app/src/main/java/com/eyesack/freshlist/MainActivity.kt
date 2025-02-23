@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -26,10 +27,24 @@ class MainActivity : AppCompatActivity() {
     private lateinit var listButton: Button // Add Button reference
     private lateinit var pantryButton: Button
     private var endpoint: String = "http://10.0.0.116:8000/process-images/"
+    private lateinit var authentication: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        authentication = FirebaseAuth.getInstance()
+        val user = authentication.currentUser
+
+        if (user == null) {
+            val intent = Intent(this, SignInActivity::class.java)
+            startActivity(intent)
+        }
+
+        val signOutButton: Button = findViewById(R.id.btnSignOut)
+        signOutButton.setOnClickListener {
+            signOut()
+        }
 
         loadEndpoint()
 
@@ -192,5 +207,11 @@ class MainActivity : AppCompatActivity() {
         super.onNewIntent(intent)
         setIntent(intent)  //very important
         handleIncomingCrossedOffItems() // Handle potential new crossed-off items
+    }
+
+    private fun signOut() {
+        authentication.signOut()
+        val intent = Intent(this, SignInActivity::class.java)
+        startActivity(intent)
     }
 }
