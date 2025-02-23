@@ -14,10 +14,13 @@ class PantryItemAdapter(
 
     class PantryItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val itemName: TextView = view.findViewById(R.id.itemName)
+        //If you add other views to card_pantry_item.xml, declare them here.  For example:
+        //val removeButton: ImageButton = view.findViewById(R.id.removeButton)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PantryItemViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.pantry_item, parent, false)
+        // Inflate the card_pantry_item layout
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.card_pantry_item, parent, false)
         return PantryItemViewHolder(view)
     }
 
@@ -25,6 +28,7 @@ class PantryItemAdapter(
         val item = items[position]
         holder.itemName.text = item.name
 
+        // Set click listeners on the itemView (the whole card)
         holder.itemView.setOnClickListener { onItemClick(item) }
         holder.itemView.setOnLongClickListener {
             onItemLongClick(item)

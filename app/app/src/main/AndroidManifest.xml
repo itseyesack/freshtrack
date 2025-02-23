@@ -51,32 +51,19 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-            <activity
-                android:name=".SignInActivity"
-                android:exported="false" />
-
-        <!-- Camera Activity -->
-        <activity android:name=".CameraActivity"
-            android:theme="@style/Theme.FreshList"
-            android:exported="true">
-            <!-- Declare this activity to handle camera intents -->
-            <intent-filter>
-                <action android:name="android.media.action.IMAGE_CAPTURE" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-            <!-- You may also declare the activity to handle image picking, if needed -->
             <intent-filter>
                 <action android:name="android.intent.action.PICK" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="image/*" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.media.action.IMAGE_CAPTURE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
-
-        <!-- Pantry Activity -->
-        <activity android:name=".PantryActivity"
-            android:theme="@style/Theme.FreshList"
-            android:exported="false"/>
+            <activity
+                android:name=".ProfileActivity"
+                android:exported="false" />
 
         <!-- Pantry Item Details Activity -->
         <activity android:name=".PantryItemDetailsActivity"

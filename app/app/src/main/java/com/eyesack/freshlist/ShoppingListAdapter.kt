@@ -1,7 +1,7 @@
 package com.eyesack.freshlist
 
 import android.graphics.Paint
-import android.graphics.Color // Import Color
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ShoppingListAdapter(
     private val items: MutableList<String>,
-    private val crossedOffItems: MutableList<String>
+    private val crossedOffItems: MutableList<String>,
+    private val onItemClick: (item: String, isCrossedOff: Boolean) -> Unit // Callback
 ) : RecyclerView.Adapter<ShoppingListAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -19,32 +20,31 @@ class ShoppingListAdapter(
         init {
             itemView.setOnClickListener {
                 val item = items[adapterPosition]
-                if (item in crossedOffItems) {
-                    // If the item is already in crossedOffItems (from API), remove it on the first tap
+                val isCurrentlyCrossedOff = item in crossedOffItems
+
+                if (isCurrentlyCrossedOff) {
                     crossedOffItems.remove(item)
                     moveItemToTop(item)
                 } else {
-                    // Otherwise, add it to crossedOffItems to cross it off
                     crossedOffItems.add(item)
                     moveItemToBottom(adapterPosition)
                 }
                 notifyDataSetChanged()
-                // notifyItemChanged(adapterPosition)
-                // Save the updated list to SharedPreferences
-                (itemView.context as MainActivity).saveData()
+                // Call the callback to notify MainActivity
+                onItemClick(item, !isCurrentlyCrossedOff) // Pass the item and its NEW crossed-off state
             }
         }
     }
 
     private fun moveItemToBottom(position: Int) {
         val item = items.removeAt(position)
-        items.add(item) // Add item to the end of the list
+        items.add(item)
     }
 
     private fun moveItemToTop(item: String) {
         if (items.contains(item)) {
             items.remove(item)
-            items.add(0, item) // Add item back to the top of the list
+            items.add(0, item)
         }
     }
 
@@ -57,8 +57,6 @@ class ShoppingListAdapter(
         val item = items[position]
         holder.textView.text = item
         holder.textView.setTextColor(Color.WHITE)
-
-        // Apply or remove the strike-through effect based on cross-off status
         if (item in crossedOffItems) {
             holder.textView.paintFlags = holder.textView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         } else {
@@ -68,14 +66,6 @@ class ShoppingListAdapter(
 
     override fun getItemCount(): Int = items.size
 
-    private fun toggleCrossOffStatus(position: Int) {
-        val item = items[position]
-        if (item in crossedOffItems) {
-            crossedOffItems.remove(item)
-        } else {
-            crossedOffItems.add(item)
-        }
-        notifyItemChanged(position)
-    }
+    // This method is no longer needed, as the click listener handles toggling
+    // private fun toggleCrossOffStatus(position: Int) { ... }
 }
-
